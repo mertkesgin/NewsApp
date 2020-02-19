@@ -8,6 +8,6 @@ NewsAPP using the API. This project uses Retrofit2 as HTTP Clent.
 
 • Picasso for the Image Network
 
-• Prettytime for Convert Java Date() objects (Time Formatter)
+• Prettytime for convert Java Date() objects (Time Formatter)
 
 • Swipe Refresh
