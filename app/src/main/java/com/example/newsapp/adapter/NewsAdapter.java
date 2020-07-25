@@ -1,7 +1,7 @@
-package com.example.newsapp.Adapter;
+package com.example.newsapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,37 +11,38 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.RoomDatabase;
 
 
-import com.example.newsapp.Activities.DetailActivity;
 import com.example.newsapp.R;
-import com.example.newsapp.Models.Article;
-import com.example.newsapp.Utils.Utils;
+import com.example.newsapp.models.Article;
+import com.example.newsapp.utils.Utils;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
 
     private List<Article> articleList;
     private Context mContext;
 
-    public Adapter(List<Article> articles, Context context) {
+    public NewsAdapter(List<Article> articles, Context context) {
         this.articleList = articles;
         this.mContext = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
-        return new ViewHolder(view);
+        return new NewsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final NewsViewHolder holder, int position) {
         final Article article = articleList.get(position);
 
         holder.title.setText(article.getTitle());
@@ -51,9 +52,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         holder.published_at.setText(Utils.DateFormat(article.getPublishedAt()));
         holder.source.setText(article.getSource().getName());
 
-
         String imageUrl = article.getUrlToImage();
-
         Picasso.get().load(imageUrl).into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -69,13 +68,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra("title",article.getTitle());
-                intent.putExtra("author",article.getAuthor());
-                intent.putExtra("date",article.getPublishedAt());
-                intent.putExtra("urlToImage",article.getUrlToImage());
-                intent.putExtra("url",article.getUrl());
-                mContext.startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("article",article);
+                Navigation.findNavController(v).navigate(R.id.action_newsFragment_to_detailsFragment,bundle);
             }
         });
     }
@@ -85,16 +80,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         return articleList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class NewsViewHolder extends RecyclerView.ViewHolder{
 
         TextView title, desc, author, published_at, source, time;
         ImageView imageView;
         ProgressBar progressBar;
         CardView cardView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public NewsViewHolder(@NonNull View itemView) {
             super(itemView);
-
             title = itemView.findViewById(R.id.title);
             desc = itemView.findViewById(R.id.desc);
             author = itemView.findViewById(R.id.author);
@@ -104,7 +98,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             cardView = itemView.findViewById(R.id.cardView);
             imageView = itemView.findViewById(R.id.image);
             progressBar = itemView.findViewById(R.id.progress_bar);
-
         }
     }
 }

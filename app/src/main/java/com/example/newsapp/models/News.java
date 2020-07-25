@@ -1,5 +1,6 @@
-package com.example.newsapp.Models;
+package com.example.newsapp.models;
 
+import com.example.newsapp.models.Article;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

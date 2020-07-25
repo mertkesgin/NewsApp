@@ -1,4 +1,4 @@
-package com.example.newsapp.Utils;
+package com.example.newsapp.utils;
 
 import org.ocpsoft.prettytime.PrettyTime;
 

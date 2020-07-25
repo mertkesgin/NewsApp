@@ -1,4 +1,4 @@
-package com.example.newsapp.Activities;
+package com.example.newsapp.ui.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.newsapp.R;
+import com.example.newsapp.ui.NewsActivity;
 
 import static java.lang.Thread.sleep;
 
@@ -25,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
 
                 try {
                     sleep(2000);
-                    Intent intent = new Intent(mContext,MainActivity.class);
+                    Intent intent = new Intent(mContext, NewsActivity.class);
                     startActivity(intent);
                     finish();
                 }catch (InterruptedException e){

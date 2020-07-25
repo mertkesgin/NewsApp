@@ -1,4 +1,4 @@
-package com.example.newsapp.Models;
+package com.example.newsapp.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,6 +12,10 @@ public class Source {
     @SerializedName("name")
     @Expose
     private String name;
+
+    public Source(String name) {
+        this.name = name;
+    }
 
     public String getId() {
         return id;
