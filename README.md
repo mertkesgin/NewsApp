@@ -1,8 +1,14 @@
 # NewsApp
 
-NewsAPP using the API. This project uses Retrofit2 as HTTP Clent.
-
 • Live News API
+
+• "MVVM"
+
+• "RxJava/RxAndroid"
+
+• "Room Database"
+
+• "Navigation Component"
 
 • "Retrofit2"
 
